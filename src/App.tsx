@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Counter from "./components/Counter/Counter";
+import Button from "./components/Button/Button";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const maxValue = 5
+    let [number, setNumber] = useState<number>(0)
+
+    const increaseNumber = () => {
+        number < maxValue && setNumber(number + 1)
+    }
+
+    const resetNumber = () => {
+        setNumber(0)
+    }
+
+    return (
+        <div className="App">
+            <Counter number={number} className={number === maxValue ? 'red' : ''}/>
+            <div className='buttons_block'>
+                <Button title='inc' callback={increaseNumber} disabled={number >= maxValue}/>
+                <Button title='reset' callback={resetNumber} disabled={number === 0}/>
+            </div>
+        </div>
+    );
 }
 
 export default App;
