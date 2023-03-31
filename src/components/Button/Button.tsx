@@ -6,10 +6,13 @@ type ButtonType = {
     disabled: boolean
 }
 
-const Button:React.FC<ButtonType> = ({title, callback, disabled}) => {
+const Button: React.FC<ButtonType> = ({title, callback, disabled}) => {
 
     return (
-        <button disabled={disabled} onClick={callback} className='button'>{title}</button>
+        <button disabled={disabled}
+                onClick={callback}
+                className='button'>{title}
+        </button>
     );
 };
 
