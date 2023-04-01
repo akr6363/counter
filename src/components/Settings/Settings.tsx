@@ -1,69 +1,103 @@
-import React, {ChangeEvent, useState} from 'react';
-import {settingsType} from "../../App";
+import React, {useEffect, useState} from 'react';
+import {displayType, settingsType} from "../../App";
 import {Input} from "../Input/Input";
+import Button from "../Button/Button";
 
-type SettingsType = {
-    maxInputValue: number
-    startInputValue: number
-    setMaxInputValue: (newValue: number) => void
-    setStartInputValue: (newValue: number) => void
+type SettingsPropsType = {
+    settings: settingsType
+    setDisplay: (display: displayType) => void
+    setSettings: (newSettings: settingsType) => void
+    setNumber: (number: number) => void
 }
 
-const Settings: React.FC<SettingsType> = (
+const Settings: React.FC<SettingsPropsType> = (
     {
-        maxInputValue,
-        startInputValue,
-        setMaxInputValue,
-        setStartInputValue
-    }) => {
+        settings,
+        setDisplay,
+        setSettings,
+        setNumber
+    }
+) => {
 
-    // const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     if (Number(e.currentTarget.value) < 1) {
-    //         setError('Incorrect value!')
-    //     }
-    //     setInputValues({...inputValues, maxValue: Number(e.currentTarget.value)})
-    // }
-    // const setStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setInputValues({...inputValues, startValue: Number(e.currentTarget.value)})
-    // }
+    const [maxInputValue, setMaxInputValue] = useState<number>(settings.maxValue)
+    const [startInputValue, setStartInputValue] = useState<number>(settings.startValue)
 
-    const [error, setError] = useState({
-        'maxValueInput': '',
-        'startValueInput': '',
+    const [errors, setErrors] = useState({
+        'maxValue': '',
+        'startValue': ''
     })
 
-    // if(startInputValue < 0) {
-    //     setError({...error, startValueInput: 'Incorrect value'})
-    // }
+    useEffect(() => {
 
-    const findError = (value: number) => {
-        setError({'maxValueInput': '',  'startValueInput': ''})
-        if (value < 0) {
-            setError({...error, startValueInput: 'Incorrect value'})
+    })
+
+    const findError = (value: number, inputName: string) => {
+        setErrors({'maxValue': '', 'startValue': ''})
+        if (inputName === 'maxValue') {
+            if (value === startInputValue) {
+                setErrors({...errors, maxValue: 'values can`t be equal'})
+            }
+            if (value < startInputValue) {
+                setErrors({...errors, maxValue: 'value can`t be less started'})
+            }
+            if (value < 1) {
+                setErrors({...errors, maxValue: 'max value can`t be less 1'})
+            }
         }
+        if (inputName === 'startValue') {
+            if (value === maxInputValue) {
+                setErrors({...errors, startValue: 'values can`t be equal'})
+            }
+            if (value > maxInputValue) {
+                setErrors({...errors, startValue: 'value can`t be more max'})
+            }
+            if (value < 0) {
+                setErrors({...errors, startValue: 'start value can`t be less 0'})
+            }
+        }
+
     }
+
+    const changeSettingsHandler = () => {
+        setSettings({
+            maxValue: Number(maxInputValue),
+            startValue: Number(startInputValue)
+        })
+        localStorage.setItem('startValue', JSON.stringify(startInputValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxInputValue))
+        setDisplay('counter')
+        setNumber(Number(startInputValue))
+    }
+
+    const isButtonDisabled = errors['maxValue'] !== '' || errors['startValue'] !== ''
 
     return (
         <>
-            <div className='settings_item'>
-                <span> max value:</span>
-                <Input value={maxInputValue}
-                       setValue={setMaxInputValue}
-                       error={error['maxValueInput']}
-                       findError={findError}
-                />
-                {/*<input type="number" onChange={setMaxValueHandler} value={inputValues.maxValue}/>*/}
+            <div className={`display`}>
+                <div className='settings_item'>
+                    <span> max value:</span>
+                    <Input value={maxInputValue}
+                           setValue={setMaxInputValue}
+                           error={errors['maxValue']}
+                           findError={findError}
+                           name={'maxValue'}
+                    />
+                </div>
+                <div className='settings_item'>
+                    <span> start value:</span>
+                    <Input value={startInputValue}
+                           setValue={setStartInputValue}
+                           error={errors['startValue']}
+                           findError={findError}
+                           name={'startValue'}
+                    />
+                </div>
             </div>
-            <div className='settings_item'>
-                <span> start value:</span>
-                {/*<input type="text" onChange={setStartValueHandler} value={inputValues.startValue}/>*/}
-                <Input value={startInputValue}
-                       setValue={setStartInputValue}
-                       error={error['startValueInput']}
-                       findError={findError}/>
+            <div className='buttons_block'>
+                <Button title='set' callback={changeSettingsHandler} disabled={isButtonDisabled}/>
             </div>
         </>
-    );
-};
+    )
+}
 
 export default Settings;

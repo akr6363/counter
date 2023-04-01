@@ -6,15 +6,15 @@ type InputPropsType = {
     value: number
     setValue: (value: number) => void
     error: string
-    findError: (value: number) => void
+    findError: (value: number, inputName: string) => void
+    name: string
 
 }
 
 export const Input: React.FC<InputPropsType> = (props) => {
     const changeInputValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.setValue(Number(e.currentTarget.value))
-        props.findError(Number(e.currentTarget.value))
-
+        props.findError(Number(e.currentTarget.value), props.name)
     }
 
     return (<div className={'input_wrapper'}>
