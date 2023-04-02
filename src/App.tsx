@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import Settings from "./components/Settings/Settings";
+import styled from "styled-components";
 
 export type displayType = 'counter' | 'settings'
 export type settingsType = {
@@ -39,8 +40,8 @@ function App() {
     }
 
     return (
-        <div className={'wrapper'}>
-            <div className={'App'}>
+        <Wrapper>
+            <Container>
                 {display === 'settings' &&
                     <Settings settings={settings}
                               setDisplay={setDisplay}
@@ -52,17 +53,52 @@ function App() {
                              settings={settings}
                              resetNumber={resetNumber}
                              setDisplay={setDisplay}
-                             className={number === settings.maxValue ? 'red' : ''}
                     />}
-            </div>
-        </div>
+            </Container>
+        </Wrapper>
     );
 }
 
 export default App;
 
 
+const Wrapper = styled.div `
+  display: flex;
+  align-items: stretch;
+  height: 300px;
+`
 
+export const Container = styled.div `
+  display: flex;
+  flex-direction: column;
+  border: 5px solid aquamarine;
+  border-radius: 20px;
+  padding: 15px;
+  width: 420px;
+`
 
+export const Display = styled.div `
+  border-radius: 20px;
+  margin-bottom: 15px;
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  flex-grow: 1;
+  color: green;
+  font-weight: bold;
+  padding: 0px 40px;
+`
+
+export const ButtonsBlock = styled.div `
+  display: flex;
+  justify-content: space-around;
+  border: 5px solid aquamarine;
+  border-radius: 20px;
+  padding: 15px 10px;
+  -webkit-user-select: none;
+`
 
 

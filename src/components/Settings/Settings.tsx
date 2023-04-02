@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {displayType, settingsType} from "../../App";
+import {ButtonsBlock, Display, displayType, settingsType} from "../../App";
 import {Input} from "../Input/Input";
 import Button from "../Button/Button";
+import styled from "styled-components";
 
 type SettingsPropsType = {
     settings: settingsType
@@ -26,14 +27,12 @@ const Settings: React.FC<SettingsPropsType> = (
         'maxValue': '',
         'startValue': ''
     })
-
-    useEffect(() => {
-
-    })
-
+    
+console.log(errors.maxValue)
     const findError = (value: number, inputName: string) => {
         setErrors({'maxValue': '', 'startValue': ''})
         if (inputName === 'maxValue') {
+
             if (value === startInputValue) {
                 setErrors({...errors, maxValue: 'values can`t be equal'})
             }
@@ -45,6 +44,7 @@ const Settings: React.FC<SettingsPropsType> = (
             }
         }
         if (inputName === 'startValue') {
+
             if (value === maxInputValue) {
                 setErrors({...errors, startValue: 'values can`t be equal'})
             }
@@ -73,8 +73,8 @@ const Settings: React.FC<SettingsPropsType> = (
 
     return (
         <>
-            <div className={`display`}>
-                <div className='settings_item'>
+            <Display>
+                <SettingsItem>
                     <span> max value:</span>
                     <Input value={maxInputValue}
                            setValue={setMaxInputValue}
@@ -82,8 +82,8 @@ const Settings: React.FC<SettingsPropsType> = (
                            findError={findError}
                            name={'maxValue'}
                     />
-                </div>
-                <div className='settings_item'>
+                </SettingsItem>
+                <SettingsItem>
                     <span> start value:</span>
                     <Input value={startInputValue}
                            setValue={setStartInputValue}
@@ -91,13 +91,23 @@ const Settings: React.FC<SettingsPropsType> = (
                            findError={findError}
                            name={'startValue'}
                     />
-                </div>
-            </div>
-            <div className='buttons_block'>
+                </SettingsItem>
+            </Display>
+            <ButtonsBlock>
                 <Button title='set' callback={changeSettingsHandler} disabled={isButtonDisabled}/>
-            </div>
+            </ButtonsBlock>
         </>
     )
 }
 
 export default Settings;
+
+const SettingsItem = styled.div`
+  font-size: 25px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+`

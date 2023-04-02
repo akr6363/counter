@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+import styled, {css} from "styled-components";
+
 
 type InputPropsType = {
     value: number
@@ -17,16 +17,42 @@ export const Input: React.FC<InputPropsType> = (props) => {
         props.findError(Number(e.currentTarget.value), props.name)
     }
 
-    return (<div className={'input_wrapper'}>
-            <input
+    return (<InputWrapper>
+            <StyledInput
+                error={props.error !== ''}
                 type="number"
                 value={props.value}
                 onChange={changeInputValueHandler}
-                className={`input ${props.error ? 'error' : ''}`}/>
-            <div className={'error_text'}>{props.error}</div>
-        </div>
+                />
+            <ErrorText>{props.error}</ErrorText>
+        </InputWrapper>
 
 
     );
 };
 
+const InputWrapper = styled.div`
+  position: relative;
+`
+
+const ErrorText = styled.div`
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  margin-left: 10px;
+`
+
+const StyledInput = styled.input<{error: boolean}>`
+  border-radius: 20px;
+  border: none;
+  padding: 10px 10px;
+  text-align: center;
+  font-weight: bold;
+  width: 150px;
+  outline: none;
+  
+  ${props => props.error && css`
+    outline: 2px solid red;
+    color: red;
+  `}
+`

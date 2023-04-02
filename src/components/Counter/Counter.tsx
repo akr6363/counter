@@ -1,11 +1,11 @@
 import React from 'react';
-import {displayType, settingsType} from "../../App";
+import {ButtonsBlock, Display, displayType, settingsType} from "../../App";
 import Settings from "../Settings/Settings";
 import Button from "../Button/Button";
+import styled, {css} from "styled-components";
 
 type CounterPropsType = {
     number: number
-    className: string
     increaseNumber: () => void
     settings: settingsType
     resetNumber: () => void
@@ -19,7 +19,6 @@ const Counter: React.FC<CounterPropsType> = (
         settings,
         resetNumber,
         setDisplay,
-        className
     }
 ) => {
 
@@ -28,22 +27,27 @@ const Counter: React.FC<CounterPropsType> = (
     }
     return (
         <>
-            <div className={`display`}>
-                <span className={`number ${className}`}>
-                    {number}
-                </span>
-            </div>
-            <div className='buttons_block'>
+            <Display>
+                <Number red={number === settings.maxValue}>{number}</Number>
+            </Display>
+            <ButtonsBlock>
                 <Button title='inc' callback={increaseNumber}
                         disabled={number >= settings.maxValue}/>
                 <Button title='reset' callback={resetNumber}
                         disabled={number === settings.startValue}/>
                 <Button title='set' callback={openSettingsHandler}
                         disabled={false}/>
-            </div>
+            </ButtonsBlock>
         </>
     )
 }
 
 
 export default Counter;
+
+const Number = styled.span<{red: boolean}>`
+  font-size: 100px;
+  ${props => props.red && css`
+    color: red;
+  `}
+`
