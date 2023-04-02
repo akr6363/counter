@@ -24,39 +24,38 @@ const Settings: React.FC<SettingsPropsType> = (
     const [startInputValue, setStartInputValue] = useState<number>(settings.startValue)
 
     const [errors, setErrors] = useState({
-        'maxValue': '',
-        'startValue': ''
+        maxInputValue: '',
+        startInputValue: ''
     })
-    
-console.log(errors.maxValue)
-    const findError = (value: number, inputName: string) => {
-        setErrors({'maxValue': '', 'startValue': ''})
-        if (inputName === 'maxValue') {
 
-            if (value === startInputValue) {
-                setErrors({...errors, maxValue: 'values can`t be equal'})
+    useEffect(() => {
+        findError(maxInputValue, startInputValue);
+    }, [maxInputValue, startInputValue]);
+
+
+    const findError = (maxInputValue: number, startInputValue: number) => {
+        const errors = {
+            maxInputValue: '',
+            startInputValue: ''
+        };
+        if (maxInputValue < 1) {
+            errors.maxInputValue = 'max value can\'t be less 1';
+        }
+        if (startInputValue < 0) {
+            errors.startInputValue = 'start value can\'t be less 0';
+        }
+        if (maxInputValue > 1 && startInputValue > 0) {
+            if (maxInputValue === startInputValue) {
+                errors.maxInputValue = 'values can\'t be equal';
+                errors.startInputValue = 'values can\'t be equal';
             }
-            if (value < startInputValue) {
-                setErrors({...errors, maxValue: 'value can`t be less started'})
-            }
-            if (value < 1) {
-                setErrors({...errors, maxValue: 'max value can`t be less 1'})
+            if (maxInputValue < startInputValue) {
+                errors.maxInputValue = 'value can\'t be less started';
+                errors.startInputValue = 'value can\'t be more max';
             }
         }
-        if (inputName === 'startValue') {
-
-            if (value === maxInputValue) {
-                setErrors({...errors, startValue: 'values can`t be equal'})
-            }
-            if (value > maxInputValue) {
-                setErrors({...errors, startValue: 'value can`t be more max'})
-            }
-            if (value < 0) {
-                setErrors({...errors, startValue: 'start value can`t be less 0'})
-            }
-        }
-
-    }
+        setErrors(errors);
+    };
 
     const changeSettingsHandler = () => {
         setSettings({
@@ -69,7 +68,7 @@ console.log(errors.maxValue)
         setNumber(Number(startInputValue))
     }
 
-    const isButtonDisabled = errors['maxValue'] !== '' || errors['startValue'] !== ''
+    const isButtonDisabled = errors.maxInputValue !== '' || errors.startInputValue !== ''
 
     return (
         <>
@@ -78,18 +77,14 @@ console.log(errors.maxValue)
                     <span> max value:</span>
                     <Input value={maxInputValue}
                            setValue={setMaxInputValue}
-                           error={errors['maxValue']}
-                           findError={findError}
-                           name={'maxValue'}
+                           error={errors.maxInputValue}
                     />
                 </SettingsItem>
                 <SettingsItem>
                     <span> start value:</span>
                     <Input value={startInputValue}
                            setValue={setStartInputValue}
-                           error={errors['startValue']}
-                           findError={findError}
-                           name={'startValue'}
+                           error={errors.startInputValue}
                     />
                 </SettingsItem>
             </Display>
@@ -107,6 +102,7 @@ const SettingsItem = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+
   &:not(:last-child) {
     margin-bottom: 20px;
   }
