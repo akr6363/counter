@@ -17,7 +17,7 @@ export type ErrorsType = {
     maxInputError: string
     startInputError: string
 }
-type SettingsStateType = {
+export type SettingsStateType = {
     settings: SettingsType
     errors: ErrorsType
     display: displayType,
