@@ -22,9 +22,6 @@ const Counter: React.FC<CounterPropsType> = (
     }
 ) => {
 
-    const openSettingsHandler = () => {
-        setDisplay('settings')
-    }
     return (
         <>
             <Display>
@@ -35,7 +32,7 @@ const Counter: React.FC<CounterPropsType> = (
                         disabled={number >= settings.maxValue}/>
                 <Button title='reset' callback={resetNumber}
                         disabled={number === settings.startValue}/>
-                <Button title='set' callback={openSettingsHandler}
+                <Button title='set' callback={()=> setDisplay('settings')}
                         disabled={false}/>
             </ButtonsBlock>
         </>

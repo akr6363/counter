@@ -18,14 +18,14 @@ function App() {
         return maxValueLS ? JSON.parse(maxValueLS) : 10
     }
 
-    const startMaxValue = () => {
+    const getStartValue = () => {
         const startValueLS = localStorage.getItem('startValue')
         return startValueLS ? JSON.parse(startValueLS) : 0
     }
 
     const [settings, setSettings] = useState<settingsType>({
         maxValue: getMaxValue(),
-        startValue: startMaxValue()
+        startValue: getStartValue()
     })
 
     const [number, setNumber] = useState<number>(settings.startValue)

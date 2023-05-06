@@ -1,14 +1,13 @@
 import React from 'react';
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 
 type ButtonType = {
     title: string
     callback: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 
-const Button: React.FC<ButtonType> = ({title, callback, disabled}) => {
-
+const Button: React.FC<ButtonType> = ({title, callback, disabled= false}) => {
     return (
         <StyledButton disabled={disabled}
                 onClick={callback}
