@@ -1308,6 +1308,55 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.36.0.tgz#9837f768c03a1e4a30bd304a64fb8844f0e72efe"
   integrity sha512-lxJ9R5ygVm8ZWgYdUweoq5ownDlJ4upvoWmO4eLxBYHdMo+vZ/Rx0EN6MbKWDJOSUGrqJy2Gt+Dyv/VKml0fjg==
 
+"@f/foreach-array@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@f/foreach-array/-/foreach-array-1.0.0.tgz#163b0ae67cd1fc18d94c451da9006c3ce1ce6da8"
+  integrity sha512-D2FSLKD+7SUjWComdE32cUMEh9t0OSkHLk2/IWYSdi19eDEWmxBVL6g/tMZA8BGGmU6KPUdAuZofxEWZvpYugg==
+
+"@f/foreach-obj@^1.0.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/foreach-obj/-/foreach-obj-1.1.1.tgz#5ad38a629c0298290a8d06a39f281d979a6804c4"
+  integrity sha512-C6OC476HdhmJFDqoRVi22WbnKAkeLgkOyDLsjEzIJEwG0kSmr56rcSL1+1kyVPIlr0P6QBmB+E0XZVjemGft8A==
+
+"@f/foreach@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@f/foreach/-/foreach-1.2.2.tgz#2dd0aca6c5fe74fa965b0f46640f7623930434cd"
+  integrity sha512-IrPmowo0n8r1IKLHARfvVHTzZ1x010ZwvvrodgAp4OEsbK/gL9MmXkey2x7zwrHGJkGLgOMSknCtVDXJJYrXaw==
+  dependencies:
+    "@f/foreach-array" "^1.0.0"
+    "@f/foreach-obj" "^1.0.1"
+    "@f/is-array" "^1.1.1"
+    "@f/is-object" "^1.1.1"
+
+"@f/get-prop@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/get-prop/-/get-prop-1.1.1.tgz#525cbe5c037e0e70ce2bf8021eeb862db3aef4f0"
+  integrity sha512-qywgc6NLnEOKsT+XTNXpIx1aKNgbwTBMLr71eiYpnqjCQq0ZTozAZTXlrvS0B5N+Q4QDYkho0Kw00ltXq+f5bg==
+  dependencies:
+    "@f/is-string" "^1.0.1"
+
+"@f/is-array@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/is-array/-/is-array-1.1.1.tgz#cb3cd2f20016fc7b6d7049013c0318d75a222590"
+  integrity sha512-LbfqjbYlp7Rr/29q+zTSNgEOir7Z9tUv/7C3JasvqIYOFN97SSkzPmwLF8BgNQlShAlcxIrlux3Vb+IRnEE2Nw==
+
+"@f/is-function@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/is-function/-/is-function-1.1.1.tgz#17d342a53ef7d2ff791371c2f4fa381245ce0231"
+  integrity sha512-bAMzsEuqt1q/my3gWL/jujRF0v29DPws3xguvkhcl6c5l8PgK+YfA2R/TdTmMQEZ1/nBure7hN7JkFYQZ75srA==
+
+"@f/is-object@^1.1.1":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@f/is-object/-/is-object-1.1.4.tgz#278ddc91bd13645ac0b73963539e0e52677b7494"
+  integrity sha512-FZJLbNl3gxupMZTTsmqfgxQwWrmUgqBx61QozST9DIMafFacIvlLgXgziioZ/+TRiuqhbW8qlNBn4nEdVlI6GQ==
+  dependencies:
+    "@f/is-function" "^1.1.1"
+
+"@f/is-string@^1.0.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@f/is-string/-/is-string-1.1.1.tgz#02a098ff44562e42ad795380909b46824b0f06db"
+  integrity sha512-0TJnk1Lnz00UUNKccErJTP3Svs3uhp98y1gRFO193F52gG2G9VJ9e6Vu4eEWiOWS/hYf9mInochm7Vq/w6e3Kg==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
@@ -7813,6 +7862,14 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
+
+redux-subscribe@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/redux-subscribe/-/redux-subscribe-1.0.2.tgz#7ca8e3ea20a2aa57cb300ceb8e0ad31f61429ef3"
+  integrity sha512-jwE2ck/Oy4/8DDGd5ca8QqnDusf5eZxuTrLLDCWRW6jAiKm2Zj0w9xxJKtWqHFx8ZPZQFvsih6HrvNICmkBrzQ==
+  dependencies:
+    "@f/foreach" "^1.2.2"
+    "@f/get-prop" "^1.1.1"
 
 redux@^4.0.0, redux@^4.2.1:
   version "4.2.1"
