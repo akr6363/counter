@@ -33,7 +33,7 @@ type SetNumberActionType = ReturnType<typeof setNumberAC>
 
 type SettingReducerActionType = setStartSettingsAC | setMaxSettingsAC | SetErrorsActionType |  SetDisplayActionType | SetNumberActionType
 
-const initialState: SettingsStateType = {
+export const initialState: SettingsStateType = {
     settings: {
         maxValue: 10,
         startValue: 0,
